@@ -153,34 +153,37 @@
     <p>Soft and gentle playful pup.</p>
   </article>
 </div>
-
+<!-- This is the button the user clicks to get a random food picture -->
 <button id="foodBtn">Show Random Food</button>
-
+<!-- This box holds the image that comes back from the API -->
 <div id="foodBox">
   <h3>Random Food</h3>
+  <!-- This image starts empty. I replace the “src” using the API data -->
   <img id="foodImg" src="" alt="Random food image" />
 </div>
 
 <script src="https://unpkg.com/popmotion/dist/popmotion.global.min.js"></script>
 
 <script>
+  // grabbing my button and the empty image so I can work with them
 let foodBtn = document.getElementById("foodBtn");
 let foodImg = document.getElementById("foodImg");
-
+// when the user clicks the button, I call the Foodish API
 foodBtn.addEventListener("click", function () {
-
+// this API gives me a random food picture in JSON format
   fetch("https://foodish-api.com/api/")
-    .then(res => res.json())
+    .then(res => res.json())      // turn the response into regular JS
     .then(data => {
-
+      // update the image on the page with the picture from the API
       foodImg.src = data.image;
-      foodImg.style.display = "block";
+      foodImg.style.display = "block";   // makes sure the image shows up
 
       // popmotion animation
+      // makes the image fade in and slide up a little
       popmotion.tween({
-        from: { opacity: 0, y: 25 },
-        to: { opacity: 1, y: 0 },
-        duration: 600
+        from: { opacity: 0, y: 25 },       // starts faded out + lower
+        to: { opacity: 1, y: 0 },          // ends fully visible + normal position
+        duration: 600                      // animation lasts 0.6 seconds
       }).start(v => {
         foodImg.style.opacity = v.opacity;
         foodImg.style.transform =
